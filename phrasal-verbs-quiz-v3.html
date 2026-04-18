@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhrasalMaster – Learn English Phrasal Verbs</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF8F3;
+    --ink: #1C1A17;
+    --ink-muted: #6B6760;
+    --ink-faint: #B5B2AC;
+    --gold: #C9922A;
+    --gold-light: #F5E6C8;
+    --gold-dark: #8A6118;
+    --teal: #1D7A6E;
+    --teal-light: #E0F2EF;
+    --teal-dark: #0F4D45;
+    --purple: #5C3D8F;
+    --purple-light: #EEE8F8;
+    --purple-dark: #3A2060;
+    --red: #C0392B;
+    --red-light: #FBEAEA;
+    --green: #2E7D52;
+    --green-light: #E8F5EE;
+    --border: rgba(28,26,23,0.12);
+    --border-strong: rgba(28,26,23,0.25);
+    --shadow: 0 2px 16px rgba(28,26,23,0.08);
+    --shadow-strong: 0 8px 32px rgba(28,26,23,0.14);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--ink);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+  .logo span { color: var(--gold); }
+
+  .header-right { display: flex; align-items: center; gap: 1.5rem; }
+
+  .session-score {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.65);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .session-score strong { color: #fff; }
+
+  .btn-upgrade {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: var(--gold);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-upgrade:hover { background: var(--gold-dark); }
+
+  .app {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  /* Verb tabs */
+  .verb-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .verb-tab {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 0.45rem 1rem;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 100px;
+    background: #fff;
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .verb-tab:hover { border-color: var(--gold); color: var(--gold-dark); }
+  .verb-tab.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .verb-tab.locked { opacity: 0.42; cursor: default; }
+  .verb-tab.locked:hover { border-color: var(--border-strong); color: var(--ink-muted); }
+  .verb-tab.mixed-tab { background: var(--purple-light); border-color: var(--purple); color: var(--purple-dark); font-weight: 600; }
+  .verb-tab.mixed-tab.active { background: var(--purple); border-color: var(--purple); color: #fff; }
+
+  /* Mode selector — 2 rows of tabs */
+  .mode-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .mode-grid-row2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+    max-width: calc(66.66% + 0.2rem);
+  }
+
+  .mode-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.6rem 0.75rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    color: var(--ink-muted);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+    line-height: 1.3;
+  }
+  .mode-btn .mode-num {
+    display: block;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+    color: var(--ink-faint);
+  }
+  .mode-btn:hover { border-color: var(--teal); color: var(--teal-dark); }
+  .mode-btn.active { background: var(--teal); border-color: var(--teal); color: #fff; }
+  .mode-btn.active .mode-num { color: rgba(255,255,255,0.7); }
+  .mode-btn.pro-mode { border-style: dashed; }
+  .mode-btn.pro-mode:hover { border-color: var(--purple); color: var(--purple-dark); }
+  .mode-btn.pro-mode.active { background: var(--purple); border-color: var(--purple); border-style: solid; }
+  .mode-btn .pro-pill {
+    display: inline-block;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    background: var(--gold);
+    color: #fff;
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    margin-left: 0.3rem;
+    vertical-align: middle;
+  }
+
+  /* Progress */
+  .progress-wrap { margin-bottom: 2rem; }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    margin-bottom: 0.5rem;
+  }
+  .progress-track { height: 5px; background: var(--border); border-radius: 100px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--teal); border-radius: 100px; transition: width 0.4s ease; }
+
+  /* Question card */
+  .q-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem 2rem 1.75rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
+    animation: fadeIn 0.22s ease;
+  }
+
+  .q-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    padding: 0.3rem 0.75rem;
+    border-radius: 100px;
+    margin-bottom: 1.25rem;
+  }
+  .q-badge.purple { background: var(--purple-light); color: var(--purple-dark); }
+  .q-badge.gold { background: var(--gold-light); color: var(--gold-dark); }
+
+  .q-verb-group {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .q-instruction {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    margin-bottom: 1.75rem;
+    line-height: 1.5;
+  }
+
+  /* Matching */
+  .match-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .match-col-label {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.5rem;
+  }
+  .match-item {
+    padding: 0.75rem 1rem; border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-size: 0.88rem; cursor: pointer;
+    transition: all 0.15s; background: #fff; line-height: 1.4; margin-bottom: 0.5rem;
+  }
+  .match-item .phrase-text { font-weight: 500; }
+  .match-item .phrase-example { font-size: 0.76rem; color: var(--ink-muted); font-style: italic; margin-top: 0.2rem; line-height: 1.3; }
+  .match-item:hover { border-color: var(--gold); background: var(--gold-light); }
+  .match-item.selected { border-color: var(--gold); background: var(--gold-light); box-shadow: 0 0 0 2px var(--gold); }
+  .match-item.matched-correct { border-color: var(--green); background: var(--green-light); cursor: default; }
+  .match-item.matched-wrong { border-color: var(--red); background: var(--red-light); animation: shake 0.3s; }
+  .match-item.dimmed { opacity: 0.35; cursor: default; }
+  .match-letter {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 20px; height: 20px; border-radius: 50%; background: var(--ink);
+    color: #fff; font-size: 0.68rem; font-weight: 600; margin-right: 0.45rem; flex-shrink: 0;
+  }
+
+  /* Fill-in */
+  .fill-sentence { font-size: 1.1rem; line-height: 1.9; margin-bottom: 1.5rem; color: var(--ink); }
+  .fill-hint {
+    display: inline-block; font-size: 0.82rem; font-style: italic;
+    color: var(--teal-dark); background: var(--teal-light);
+    padding: 0.2rem 0.65rem; border-radius: 4px; margin-bottom: 1.25rem;
+  }
+  .blank {
+    display: inline-block; min-width: 140px; border-bottom: 2.5px solid var(--ink);
+    padding: 0 0.5rem 0.1rem; font-weight: 600; text-align: center; transition: all 0.25s;
+  }
+  .blank.correct { border-color: var(--green); color: var(--green); }
+  .blank.wrong { border-color: var(--red); color: var(--red); animation: shake 0.3s; }
+
+  /* Options */
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+  .option-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    padding: 0.75rem 1rem; border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-sm); background: #fff; color: var(--ink);
+    cursor: pointer; text-align: left; transition: all 0.15s; line-height: 1.3;
+  }
+  .option-btn:hover:not(:disabled) { border-color: var(--gold); background: var(--gold-light); color: var(--gold-dark); }
+  .option-btn.correct { border-color: var(--green); background: var(--green-light); color: var(--green); }
+  .option-btn.wrong { border-color: var(--red); background: var(--red-light); color: var(--red); }
+  .option-btn:disabled { cursor: default; }
+
+  /* SAT passage */
+  .passage-box {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.75rem;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: var(--ink);
+  }
+  .passage-box .passage-label {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gold-dark); margin-bottom: 0.65rem;
+  }
+  .passage-highlight {
+    background: var(--gold-light);
+    border-radius: 3px;
+    padding: 0.05rem 0.2rem;
+    font-weight: 600;
+    color: var(--gold-dark);
+    cursor: default;
+  }
+  .passage-highlight.answered-correct {
+    background: var(--green-light);
+    color: var(--green);
+  }
+  .passage-highlight.answered-wrong {
+    background: var(--red-light);
+    color: var(--red);
+  }
+
+  .sat-q-num {
+    font-size: 0.78rem; font-weight: 600; color: var(--ink-muted);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.03em;
+  }
+  .sat-question-text {
+    font-size: 1rem; font-weight: 500; color: var(--ink);
+    margin-bottom: 1.1rem; line-height: 1.5;
+  }
+  .sat-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; margin-bottom: 1.5rem; }
+  .sat-option-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 400;
+    padding: 0.7rem 1rem; border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-sm); background: #fff; color: var(--ink);
+    cursor: pointer; text-align: left; transition: all 0.15s; line-height: 1.3;
+    display: flex; align-items: flex-start; gap: 0.6rem;
+  }
+  .sat-option-btn .opt-letter {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--border-strong);
+    font-size: 0.72rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    transition: all 0.15s;
+  }
+  .sat-option-btn:hover:not(:disabled) { border-color: var(--gold); background: var(--gold-light); }
+  .sat-option-btn:hover:not(:disabled) .opt-letter { border-color: var(--gold); color: var(--gold-dark); }
+  .sat-option-btn.correct { border-color: var(--green); background: var(--green-light); }
+  .sat-option-btn.correct .opt-letter { background: var(--green); border-color: var(--green); color: #fff; }
+  .sat-option-btn.wrong { border-color: var(--red); background: var(--red-light); }
+  .sat-option-btn.wrong .opt-letter { background: var(--red); border-color: var(--red); color: #fff; }
+  .sat-option-btn:disabled { cursor: default; }
+
+  .sat-divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+  /* Feedback */
+  .feedback {
+    display: none; padding: 0.85rem 1.25rem; border-radius: var(--radius-sm);
+    font-size: 0.88rem; font-weight: 500; margin-top: 1.25rem;
+    line-height: 1.5; align-items: flex-start; gap: 0.6rem;
+  }
+  .feedback.show { display: flex; }
+  .feedback.correct-fb { background: var(--green-light); color: var(--green); }
+  .feedback.wrong-fb { background: var(--red-light); color: var(--red); }
+  .feedback-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+  /* Nav */
+  .nav-row {
+    display: flex; justify-content: space-between;
+    align-items: center; margin-top: 1.25rem;
+  }
+  .btn-nav {
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 600;
+    padding: 0.65rem 1.5rem; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border-strong); background: #fff;
+    color: var(--ink); cursor: pointer; transition: all 0.15s;
+  }
+  .btn-nav:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .btn-nav.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .btn-nav.primary:hover { background: #333; }
+  .btn-nav:disabled { opacity: 0.35; cursor: default; }
+  .btn-nav:disabled:hover { background: #fff; color: var(--ink); border-color: var(--border-strong); }
+
+  /* Mixed review badge */
+  .mixed-badge-row {
+    display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem;
+  }
+  .mixed-source-chip {
+    font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.65rem;
+    border-radius: 100px; background: var(--purple-light); color: var(--purple-dark);
+    letter-spacing: 0.04em;
+  }
+
+  /* Results */
+  .results-card {
+    background: #fff; border: 1px solid var(--border); border-radius: 20px;
+    padding: 3rem 2.5rem; text-align: center; box-shadow: var(--shadow-strong);
+  }
+  .results-score-ring {
+    width: 110px; height: 110px; border-radius: 50%; border: 5px solid var(--teal);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
+  .results-score-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--teal-dark); line-height: 1; }
+  .results-score-label { font-size: 0.72rem; color: var(--ink-muted); font-weight: 500; }
+  .results-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .results-sub { font-size: 0.9rem; color: var(--ink-muted); margin-bottom: 2rem; }
+  .results-breakdown { text-align: left; margin-bottom: 2rem; }
+  .breakdown-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.65rem 0; border-bottom: 1px solid var(--border); font-size: 0.88rem;
+  }
+  .breakdown-item:last-child { border-bottom: none; }
+  .breakdown-phrase { font-weight: 500; }
+  .breakdown-result { font-size: 0.8rem; font-weight: 600; }
+  .breakdown-result.ok { color: var(--green); }
+  .breakdown-result.miss { color: var(--red); }
+  .results-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+
+  /* Upsell */
+  .upsell-banner {
+    background: linear-gradient(135deg, var(--ink) 0%, #3D3A33 100%);
+    border-radius: 14px; padding: 1.5rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap;
+  }
+  .upsell-text h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #fff; margin-bottom: 0.25rem; }
+  .upsell-text p { font-size: 0.82rem; color: rgba(255,255,255,0.6); }
+  .btn-upsell {
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600;
+    background: var(--gold); color: #fff; border: none; border-radius: 8px;
+    padding: 0.65rem 1.5rem; cursor: pointer; white-space: nowrap; transition: background 0.15s;
+  }
+  .btn-upsell:hover { background: var(--gold-dark); }
+
+  .streak-badge {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    font-size: 0.78rem; font-weight: 600; color: var(--gold-dark);
+    background: var(--gold-light); padding: 0.25rem 0.6rem; border-radius: 100px;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    60% { transform: translateX(5px); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 640px) {
+    .match-layout { grid-template-columns: 1fr; }
+    .options-grid, .sat-options { grid-template-columns: 1fr; }
+    .mode-grid { grid-template-columns: 1fr 1fr; }
+    .mode-grid-row2 { grid-template-columns: 1fr 1fr; max-width: 100%; }
+    .app { padding: 1.5rem 1rem 3rem; }
+    .upsell-banner { flex-direction: column; text-align: center; }
+    header { padding: 0 1rem; }
+    .btn-upgrade { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Phrasal<span>Master</span></div>
+  <div class="header-right">
+    <div class="session-score">Session: <strong id="hdr-score">0 / 0</strong></div>
+    <button class="btn-upgrade" onclick="showUpgrade()">Unlock All ★</button>
+  </div>
+</header>
+
+<div class="app">
+
+  <div class="section-label">Choose a verb group</div>
+  <div class="verb-tabs" id="verb-tabs"></div>
+
+  <div class="section-label">Choose exercise type</div>
+  <div class="mode-grid" id="mode-grid-row1"></div>
+  <div class="mode-grid-row2" id="mode-grid-row2"></div>
+
+  <div class="progress-wrap" id="progress-wrap">
+    <div class="progress-meta">
+      <span id="prog-label">Question 1 of 6</span>
+      <div class="streak-badge" id="streak-badge">🔥 0 streak</div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div id="exercise-area"></div>
+
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const VERB_DATA = {
+  "Act": [
+    { phrase:"Act as",          def:"Function in a particular role",           example:"She acted as the team leader during the project.",           form:"acted as" },
+    { phrase:"Act for",         def:"Represent someone",                       example:"He acted for his colleague during the meeting.",             form:"acted for" },
+    { phrase:"Act on",          def:"Take action based on some information",   example:"They acted on the advice given by their lawyer.",            form:"acted on" },
+    { phrase:"Act out",         def:"Express emotions through behavior",       example:"The child acted out his frustration by throwing his spoon.", form:"acted out" },
+    { phrase:"Act up (machine)",def:"Malfunction",                             example:"I was late for work because my car started acting up.",      form:"acting up" },
+    { phrase:"Act up (person)", def:"Behave improperly",                      example:"The child acted up in the grocery store, screaming very loudly.", form:"acted up" },
+  ],
+  "Add": [
+    { phrase:"Add in",    def:"Include as part of something",  example:"Do you have something to add in before we conclude the discussion?", form:"add in" },
+    { phrase:"Add on",    def:"Include extra",                  example:"They added on a new feature to the software.",                      form:"added on" },
+    { phrase:"Add to",    def:"Contribute",                     example:"His actions only added to the confusion.",                          form:"added to" },
+    { phrase:"Add up",    def:"Calculate the total",            example:"Add up all the expenses before you submit the report.",            form:"add up" },
+    { phrase:"Add up to", def:"Result in",                      example:"The costs add up to more than expected.",                           form:"add up to" },
+  ],
+  "Ask": [
+    { phrase:"Ask about",  def:"Inquire regarding",                   example:"She asked about the progress of the project.",           form:"asked about" },
+    { phrase:"Ask after",  def:"Inquire about someone's well-being",  example:"She asked after her friend who was sick.",               form:"asked after" },
+    { phrase:"Ask around", def:"Inquire with multiple people",        example:"I asked around to see if anyone knew about the event.",  form:"asked around" },
+    { phrase:"Ask for",    def:"Request or seek",                     example:"He asked for directions to the nearest train station.",  form:"asked for" },
+    { phrase:"Ask of",     def:"Make a request or demand",            example:"I don't really understand what you are asking of me.",  form:"asking of" },
+    { phrase:"Ask out",    def:"Invite on a date",                    example:"He asked her out to dinner last night.",                 form:"asked her out" },
+  ],
+  "Back": [
+    { phrase:"Back away",  def:"Move away from danger or fear",  example:"He backed away slowly from the dog.",                  form:"backed away" },
+    { phrase:"Back down",  def:"Withdraw from a position",       example:"He backed down after hearing the facts.",              form:"backed down" },
+    { phrase:"Back off",   def:"Retreat or stop pressuring",     example:"The boss finally backed off.",                        form:"backed off" },
+    { phrase:"Back out",   def:"Withdraw from a commitment",     example:"She backed out of the deal last minute.",             form:"backed out" },
+    { phrase:"Back onto",  def:"Face the rear of something",     example:"Our house backs onto the park.",                     form:"backs onto" },
+    { phrase:"Back up",    def:"Support",                        example:"Can you back up your argument with evidence?",       form:"back up" },
+  ],
+};
+
+const LOCKED_VERBS = ["Break", "Bring", "Build", "Call"];
+
+// SAT passage data for "Read in Context" mode
+// All passages use MIXED phrasal verbs drawn from multiple verb groups.
+// Verb tabs are disabled in this mode; a random passage is selected each session.
+const SAT_PASSAGES = [
+  {
+    id: "mixed-01",
+    scenario: "Community Project",
+    verb_groups: ["Act","Ask","Back","Add"],
+    passage: `When the neighbourhood council decided to <mark data-phrase="act on">act on</mark> residents' concerns about the neglected community garden, they began by asking a local architect to <mark data-phrase="act as">act as</mark> project coordinator. She immediately <mark data-phrase="asked around">asked around</mark> to gauge how much volunteer support she could expect. Several families agreed to <mark data-phrase="back up">back up</mark> the initiative with both time and funding. One generous donor offered to <mark data-phrase="add on">add on</mark> a small greenhouse to the original plan, which would only <mark data-phrase="add to">add to</mark> the project's appeal. A few early volunteers began to <mark data-phrase="back out">back out</mark> when they realised the scale of the work involved, but the coordinator refused to <mark data-phrase="back down">back down</mark>. She continued to <mark data-phrase="ask for">ask for</mark> support until the numbers added up to a workable team.`,
+    questions: [
+      { phrase:"act on",    question:`As used in the passage, "act on" most nearly means:`,    options:["A. perform publicly","B. take action based on information","C. delay a decision","D. report to authorities"], correct:"B" },
+      { phrase:"act as",    question:`As used in the passage, "act as" most nearly means:`,    options:["A. pretend to be","B. criticise","C. function in a particular role","D. replace permanently"], correct:"C" },
+      { phrase:"asked around", question:`As used in the passage, "asked around" most nearly means:`, options:["A. sent a formal survey","B. inquired with multiple people","C. spoke in circles","D. posted online"], correct:"B" },
+      { phrase:"back up",   question:`As used in the passage, "back up" most nearly means:`,   options:["A. reverse direction","B. store data","C. support","D. slow down"], correct:"C" },
+      { phrase:"add on",    question:`As used in the passage, "add on" most nearly means:`,    options:["A. include extra","B. remove a feature","C. redesign completely","D. budget for"], correct:"A" },
+      { phrase:"add to",    question:`As used in the passage, "add to" most nearly means:`,    options:["A. reduce","B. contribute","C. replace","D. list separately"], correct:"B" },
+      { phrase:"back out",  question:`As used in the passage, "back out" most nearly means:`,  options:["A. leave through a back door","B. ask for more time","C. withdraw from a commitment","D. disagree openly"], correct:"C" },
+      { phrase:"back down", question:`As used in the passage, "back down" most nearly means:`, options:["A. sit and rest","B. withdraw from a position","C. move physically backward","D. lower expectations"], correct:"B" },
+      { phrase:"ask for",   question:`As used in the passage, "ask for" most nearly means:`,   options:["A. demand payment","B. request or seek","C. question the value of","D. complain about"], correct:"B" },
+      { phrase:"__comprehension__", question:`Which choice best describes the overall development in the passage?`, options:["A. A community project collapses due to lack of funding","B. A determined coordinator keeps a community initiative alive despite setbacks","C. A donor takes over a project from an inexperienced team","D. Volunteers successfully complete a garden without outside help"], correct:"B" },
+    ]
+  },
+  {
+    id: "mixed-02",
+    scenario: "School & Education",
+    verb_groups: ["Act","Add","Ask","Back"],
+    passage: `When the new headteacher arrived, she wasted no time: she chose to <mark data-phrase="act on">act on</mark> the feedback from the previous year's student survey. She asked a senior teacher to <mark data-phrase="act for">act for</mark> her during her first week of parent meetings while she settled in. Students were encouraged to <mark data-phrase="ask about">ask about</mark> any aspect of the new curriculum they found confusing. The school also decided to <mark data-phrase="add in">add in</mark> a weekly discussion period for older students. When the timetable was finalised, the deputy calculated that the changes would <mark data-phrase="add up to">add up to</mark> an extra two hours of guided study per week. A small group of parents tried to get the school to <mark data-phrase="back down">back down</mark> on the stricter attendance policy, but the headteacher stood firm and asked the governing board to <mark data-phrase="back up">back up</mark> her decision.`,
+    questions: [
+      { phrase:"act on",    question:`As used in the passage, "act on" most nearly means:`,    options:["A. perform in front of students","B. take action based on information","C. ignore completely","D. postpone until later"], correct:"B" },
+      { phrase:"act for",   question:`As used in the passage, "act for" most nearly means:`,   options:["A. argue on behalf of","B. create work for","C. represent someone","D. perform alongside"], correct:"C" },
+      { phrase:"ask about", question:`As used in the passage, "ask about" most nearly means:`, options:["A. complain about","B. inquire regarding","C. vote on","D. protest against"], correct:"B" },
+      { phrase:"add in",    question:`As used in the passage, "add in" most nearly means:`,    options:["A. remove from a schedule","B. include as part of something","C. replace an existing period","D. reduce by one hour"], correct:"B" },
+      { phrase:"add up to", question:`As used in the passage, "add up to" most nearly means:`, options:["A. be calculated incorrectly","B. cancel out","C. result in","D. be divided equally"], correct:"C" },
+      { phrase:"back down", question:`As used in the passage, "back down" most nearly means:`, options:["A. sit down quietly","B. move to a lower grade","C. withdraw from a position","D. reduce class sizes"], correct:"C" },
+      { phrase:"back up",   question:`As used in the passage, "back up" most nearly means:`,   options:["A. copy files digitally","B. return to an earlier position","C. support","D. slow down a process"], correct:"C" },
+      { phrase:"__comprehension__", question:`Which choice best describes the overall development in the passage?`, options:["A. A headteacher introduces changes and maintains them despite resistance","B. A school's new policies are rejected by parents and overturned","C. A student group successfully lobbies for fewer study hours","D. A teacher replaces the headteacher after a dispute"], correct:"A" },
+    ]
+  },
+  {
+    id: "mixed-03",
+    scenario: "Travel & Unexpected Events",
+    verb_groups: ["Act","Ask","Back","Add"],
+    passage: `The trip had barely begun when things started to go wrong. The tour bus began to <mark data-phrase="act up (machine)">act up</mark> just outside the city, forcing the group to pull over on a busy highway. The tour guide tried to <mark data-phrase="act on">act on</mark> the driver's suggestion to call a replacement vehicle immediately. While they waited, one traveller <mark data-phrase="asked after">asked after</mark> an elderly member of the group who appeared unwell in the heat. Another passenger attempted to <mark data-phrase="ask around">ask around</mark> at a nearby café to find out if anyone could help. After an hour's delay, a replacement vehicle arrived, but the driver informed them that a diversion would <mark data-phrase="add to">add to</mark> the journey time significantly. Some passengers wanted to <mark data-phrase="back out">back out</mark> of the afternoon excursion entirely, though most decided to press on. By the end of the day, the unexpected detours had managed to <mark data-phrase="add up to">add up to</mark> a surprisingly memorable adventure.`,
+    questions: [
+      { phrase:"act up (machine)", question:`As used in the passage, "act up" (the bus) most nearly means:`, options:["A. perform unexpectedly well","B. malfunction","C. speed up suddenly","D. run out of fuel"], correct:"B" },
+      { phrase:"act on",    question:`As used in the passage, "act on" most nearly means:`,    options:["A. perform in public","B. record for later","C. take action based on information","D. report to police"], correct:"C" },
+      { phrase:"asked after", question:`As used in the passage, "asked after" most nearly means:`, options:["A. followed closely behind","B. inquired about someone's well-being","C. requested something from","D. questioned the behaviour of"], correct:"B" },
+      { phrase:"ask around", question:`As used in the passage, "ask around" most nearly means:`, options:["A. inquire with multiple people","B. speak quietly","C. ask permission","D. search independently"], correct:"A" },
+      { phrase:"add to",    question:`As used in the passage, "add to" most nearly means:`,    options:["A. reduce","B. replace","C. contribute","D. calculate"], correct:"C" },
+      { phrase:"back out",  question:`As used in the passage, "back out" most nearly means:`,  options:["A. exit in reverse","B. withdraw from a commitment","C. turn around and drive back","D. ask for a refund"], correct:"B" },
+      { phrase:"add up to", question:`As used in the passage, "add up to" most nearly means:`, options:["A. be too expensive","B. cancel each other out","C. result in","D. be too long to complete"], correct:"C" },
+      { phrase:"__comprehension__", question:`Which choice best describes the overall development in the passage?`, options:["A. A carefully planned trip proceeds without difficulty","B. A series of mishaps transforms into an unexpectedly positive experience","C. Travellers abandon their trip after a vehicle breakdown","D. A tour guide loses control of a difficult group of tourists"], correct:"B" },
+    ]
+  },
+  {
+    id: "mixed-04",
+    scenario: "Workplace Conflict",
+    verb_groups: ["Act","Ask","Back","Add"],
+    passage: `The disagreement between the two department heads had been building for weeks. One manager had begun to <mark data-phrase="act out">act out</mark> her frustrations in team meetings, making colleagues uncomfortable. Her counterpart decided to <mark data-phrase="ask about">ask about</mark> the situation discreetly, approaching HR for guidance. HR advised both parties to <mark data-phrase="act on">act on</mark> the company's mediation policy before the conflict escalated further. During the mediation session, one manager tried to <mark data-phrase="back away">back away</mark> from her earlier accusations, while the other refused to <mark data-phrase="back off">back off</mark> until a formal apology was issued. The mediator suggested they <mark data-phrase="add in">add in</mark> a structured communication protocol to future team meetings. Both parties eventually agreed this would <mark data-phrase="add to">add to</mark> the team's overall effectiveness. It was, however, the willingness of senior leadership to <mark data-phrase="back up">back up</mark> the new protocol with consequences that finally resolved the matter.`,
+    questions: [
+      { phrase:"act out",   question:`As used in the passage, "act out" most nearly means:`,   options:["A. perform a role","B. express emotions through behavior","C. leave the room","D. file a formal complaint"], correct:"B" },
+      { phrase:"ask about", question:`As used in the passage, "ask about" most nearly means:`, options:["A. complain loudly about","B. report officially","C. inquire regarding","D. ignore entirely"], correct:"C" },
+      { phrase:"act on",    question:`As used in the passage, "act on" most nearly means:`,    options:["A. perform publicly","B. refuse to follow","C. take action based on information","D. draft a new version of"], correct:"C" },
+      { phrase:"back away", question:`As used in the passage, "back away" most nearly means:`, options:["A. physically leave the room","B. move away from a position","C. apologise formally","D. deny involvement"], correct:"B" },
+      { phrase:"back off",  question:`As used in the passage, "back off" most nearly means:`,  options:["A. retreat or stop pressuring","B. resign from a role","C. physically step back","D. change the subject"], correct:"A" },
+      { phrase:"add in",    question:`As used in the passage, "add in" most nearly means:`,    options:["A. remove an existing rule","B. replace a procedure","C. calculate costs","D. include as part of something"], correct:"D" },
+      { phrase:"add to",    question:`As used in the passage, "add to" most nearly means:`,    options:["A. reduce","B. contribute","C. replace","D. summarise"], correct:"B" },
+      { phrase:"back up",   question:`As used in the passage, "back up" most nearly means:`,   options:["A. store electronically","B. reverse direction","C. support","D. repeat slowly"], correct:"C" },
+      { phrase:"__comprehension__", question:`Which choice best describes the overall development in the passage?`, options:["A. A workplace conflict is resolved through structured intervention and leadership support","B. Two managers compete for the same promotion and neither succeeds","C. HR dismisses both managers after a prolonged dispute","D. A mediation session fails and the conflict remains unresolved"], correct:"A" },
+    ]
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────
+let state = {
+  verb: "Act",
+  mode: 0,
+  qIndex: 0,
+  answered: false,
+  results: [],
+  sessionCorrect: 0,
+  sessionTotal: 0,
+  streak: 0,
+  _matchItems: [], _matchDefs: [], _matchPaired: {}, _matchAttempts: {},
+  _matchSelectedPhrase: null, _matchSelectedDef: null, _matchComplete: false,
+  // SAT state
+  _satPassage: null,   // randomly chosen passage object for this session
+  _satQIndex: 0,
+  _satAnswered: false,
+  _satResults: [],
+};
+
+let questions = [];
+
+const MODES = [
+  { id:0, part:"Part 1", label:"Recognition",            pro:false },
+  { id:1, part:"Part 2", label:"Controlled Practice",    pro:false },
+  { id:2, part:"Part 3", label:"Independent Production", pro:false },
+  { id:3, part:"Part 4", label:"Mixed Review",           pro:true  },
+  { id:4, part:"Part 5", label:"Read in Context",        pro:true  },
+];
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+function init() {
+  buildVerbTabs();
+  buildModeTabs();
+  buildQuestions();
+  renderQuestion();
+}
+
+function buildVerbTabs() {
+  const c = document.getElementById('verb-tabs');
+  c.innerHTML = '';
+  const verbsDisabled = state.mode === 3 || state.mode === 4;
+
+  // Free verbs
+  Object.keys(VERB_DATA).forEach(verb => {
+    const btn = document.createElement('button');
+    const isActive = verb === state.verb && !verbsDisabled;
+    btn.className = 'verb-tab' + (isActive ? ' active' : '') + (verbsDisabled ? ' locked' : '');
+    btn.textContent = verb;
+    if (verbsDisabled) {
+      btn.title = 'Verb selection is not used in this mode';
+      btn.onclick = null;
+    } else {
+      btn.onclick = () => selectVerb(verb);
+    }
+    c.appendChild(btn);
+  });
+  // Locked Pro verbs
+  LOCKED_VERBS.forEach(verb => {
+    const btn = document.createElement('button');
+    btn.className = 'verb-tab locked';
+    btn.textContent = verb + ' ★';
+    btn.onclick = showUpgrade;
+    c.appendChild(btn);
+  });
+  // Mixed Review special tab
+  const mixBtn = document.createElement('button');
+  const mixActive = state.mode === 3;
+  mixBtn.className = 'verb-tab mixed-tab' + (mixActive ? ' active' : '');
+  mixBtn.textContent = '⚡ Mixed Review';
+  mixBtn.onclick = () => setMode(3);
+  c.appendChild(mixBtn);
+}
+
+function buildModeTabs() {
+  const row1 = document.getElementById('mode-grid-row1');
+  const row2 = document.getElementById('mode-grid-row2');
+  row1.innerHTML = '';
+  row2.innerHTML = '';
+  MODES.forEach((m, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'mode-btn' + (m.id === state.mode ? ' active' : '') + (m.pro ? ' pro-mode' : '');
+    btn.dataset.mode = m.id;
+    btn.innerHTML = `<span class="mode-num">${m.part}</span>${m.label}${m.pro ? '<span class="pro-pill">PRO</span>' : ''}`;
+    btn.onclick = () => setMode(m.id);
+    (i < 3 ? row1 : row2).appendChild(btn);
+  });
+}
+
+function selectVerb(verb) {
+  state.verb = verb;
+  state.qIndex = 0;
+  state.results = [];
+  state.answered = false;
+  resetSat();
+  buildVerbTabs();
+  buildQuestions();
+  renderQuestion();
+}
+
+function setMode(m) {
+  state.mode = m;
+  state.qIndex = 0;
+  state.results = [];
+  state.answered = false;
+  resetSat();
+  buildVerbTabs();
+  buildModeTabs();
+  buildQuestions();
+  renderQuestion();
+}
+
+function resetSat() {
+  // Pick a new random passage every time Mode 5 is entered
+  state._satPassage = SAT_PASSAGES[Math.floor(Math.random() * SAT_PASSAGES.length)];
+  state._satQIndex = 0;
+  state._satAnswered = false;
+  state._satResults = [];
+}
+
+// ── BUILD QUESTIONS ───────────────────────────────────────────────────────
+function buildQuestions() {
+  const items = VERB_DATA[state.verb] || [];
+
+  if (state.mode === 0) {
+    questions = [{ type:'matching', items }];
+  } else if (state.mode === 1 || state.mode === 2) {
+    questions = items.map((item) => {
+      const wrongPool = items.filter(x => x !== item);
+      const wrongs = shuffle([...wrongPool]).slice(0,3).map(x => x.form);
+      const opts = shuffle([item.form, ...wrongs]);
+      return { type:'fillin', item, options:opts };
+    });
+  } else if (state.mode === 3) {
+    // Mixed: pull all items across all verbs, shuffle, pick 10
+    const all = [];
+    Object.entries(VERB_DATA).forEach(([verb, items]) => {
+      items.forEach(item => all.push({ ...item, verbGroup: verb }));
+    });
+    const picked = shuffle([...all]).slice(0, 10);
+    questions = picked.map(item => {
+      const wrongPool = all.filter(x => x.form !== item.form && x.phrase !== item.phrase);
+      const wrongs = shuffle([...wrongPool]).slice(0,3).map(x => x.form);
+      const opts = shuffle([item.form, ...wrongs]);
+      return { type:'mixed', item, options:opts };
+    });
+  } else if (state.mode === 4) {
+    questions = [{ type:'sat' }];
+  }
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────
+function renderQuestion() {
+  const area = document.getElementById('exercise-area');
+  const progWrap = document.getElementById('progress-wrap');
+
+  if (state.mode === 4) {
+    progWrap.classList.add('hidden');
+    renderSAT(area);
+    return;
+  }
+
+  if (state.qIndex >= questions.length) {
+    showResults();
+    return;
+  }
+
+  const q = questions[state.qIndex];
+
+  if (state.mode === 0) {
+    progWrap.classList.add('hidden');
+  } else {
+    progWrap.classList.remove('hidden');
+    const pct = Math.round((state.qIndex / questions.length) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('prog-label').textContent = `Question ${state.qIndex + 1} of ${questions.length}`;
+    document.getElementById('streak-badge').textContent = `🔥 ${state.streak} streak`;
+  }
+
+  if (q.type === 'matching') renderMatching(q, area);
+  else if (q.type === 'fillin') renderFillin(q, area);
+  else if (q.type === 'mixed') renderMixed(q, area);
+}
+
+// ── MATCHING ──────────────────────────────────────────────────────────────
+function renderMatching(q, area) {
+  const items = q.items;
+  state._matchItems = items;
+  state._matchDefs = shuffle(items.map((it, i) => ({ def: it.def, origIdx: i })));
+  state._matchPaired = {};
+  state._matchAttempts = {};
+  state._matchSelectedPhrase = null;
+  state._matchSelectedDef = null;
+  state._matchComplete = false;
+
+  area.innerHTML = `
+    <div class="q-card">
+      <div class="q-badge">Part 1 · Recognition</div>
+      <div class="q-verb-group">${state.verb}</div>
+      <div class="q-instruction">Match each phrasal verb on the left with its correct meaning on the right. Tap a phrase, then tap its definition.</div>
+      <div class="match-layout">
+        <div><div class="match-col-label">Phrasal Verb</div><div id="phrases-col"></div></div>
+        <div><div class="match-col-label">Meaning</div><div id="defs-col"></div></div>
+      </div>
+      <div class="feedback" id="feedback"></div>
+      <div class="nav-row">
+        <span></span>
+        <button class="btn-nav primary hidden" id="btn-next-match" onclick="finishMatching()">See Results →</button>
+      </div>
+    </div>
+    ${upsellHTML()}`;
+  renderMatchCols();
+}
+
+function renderMatchCols() {
+  const items = state._matchItems;
+  const defs = state._matchDefs;
+  const paired = state._matchPaired;
+  const letters = 'abcdefghijklmnopqrstuvwxyz';
+  const pc = document.getElementById('phrases-col');
+  const dc = document.getElementById('defs-col');
+  if (!pc || !dc) return;
+  pc.innerHTML = ''; dc.innerHTML = '';
+
+  items.forEach((item, i) => {
+    const isPaired = paired[i] !== undefined;
+    const isCorrect = state._matchAttempts[i] === true;
+    const isSelected = state._matchSelectedPhrase === i;
+    let cls = 'match-item';
+    if (isPaired && isCorrect) cls += ' matched-correct';
+    else if (isPaired && !isCorrect) cls += ' matched-wrong';
+    else if (isSelected) cls += ' selected';
+    else if (state._matchComplete) cls += ' dimmed';
+    const div = document.createElement('div');
+    div.className = cls;
+    div.innerHTML = `<span class="phrase-text">${item.phrase}</span><div class="phrase-example">${item.example}</div>`;
+    if (!isPaired && !state._matchComplete) div.onclick = () => selectPhrase(i);
+    pc.appendChild(div);
+  });
+
+  defs.forEach((d, j) => {
+    const usedBy = Object.entries(paired).find(([pi, oi]) => oi === d.origIdx);
+    const isPaired = !!usedBy;
+    const phraseIdx = isPaired ? +usedBy[0] : null;
+    const isCorrect = isPaired && state._matchAttempts[phraseIdx] === true;
+    const isSelected = state._matchSelectedDef === j;
+    let cls = 'match-item';
+    if (isPaired && isCorrect) cls += ' matched-correct';
+    else if (isPaired && !isCorrect) cls += ' matched-wrong';
+    else if (isSelected) cls += ' selected';
+    const div = document.createElement('div');
+    div.className = cls;
+    div.innerHTML = `<span class="match-letter">${letters[j]}</span>${d.def}`;
+    if (!isPaired && !state._matchComplete) div.onclick = () => selectDef(j);
+    dc.appendChild(div);
+  });
+}
+
+function selectPhrase(i) {
+  if (state._matchPaired[i] !== undefined) return;
+  state._matchSelectedPhrase = i;
+  if (state._matchSelectedDef !== null) attemptMatch(i, state._matchSelectedDef);
+  else renderMatchCols();
+}
+
+function selectDef(j) {
+  if (state._matchSelectedPhrase !== null) attemptMatch(state._matchSelectedPhrase, j);
+  else { state._matchSelectedDef = j; renderMatchCols(); }
+}
+
+function attemptMatch(phraseIdx, defJ) {
+  const correct = state._matchDefs[defJ].origIdx === phraseIdx;
+  state._matchPaired[phraseIdx] = state._matchDefs[defJ].origIdx;
+  state._matchAttempts[phraseIdx] = correct;
+  if (correct) state.sessionCorrect++;
+  state.sessionTotal++;
+  updateHeaderScore();
+  state._matchSelectedPhrase = null;
+  state._matchSelectedDef = null;
+  renderMatchCols();
+  if (!correct) {
+    setTimeout(() => {
+      delete state._matchPaired[phraseIdx];
+      delete state._matchAttempts[phraseIdx];
+      renderMatchCols();
+    }, 900);
+  } else {
+    if (Object.keys(state._matchPaired).length === state._matchItems.length) {
+      state._matchComplete = true;
+      const btn = document.getElementById('btn-next-match');
+      if (btn) btn.classList.remove('hidden');
+      showFeedback(true, 'Excellent! You matched all the phrasal verbs correctly.');
+    }
+  }
+}
+
+function finishMatching() {
+  state.results = state._matchItems.map((item, i) => ({ phrase: item.phrase, correct: state._matchAttempts[i] === true }));
+  showResults();
+}
+
+// ── FILL IN ───────────────────────────────────────────────────────────────
+function renderFillin(q, area) {
+  const item = q.item;
+  const withHint = state.mode === 1;
+  const escaped = item.form.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const sentence = item.example.replace(new RegExp(escaped,'i'), `<span class="blank" id="blank">________</span>`);
+  area.innerHTML = `
+    <div class="q-card">
+      <div class="q-badge">Part ${state.mode + 1} · ${state.mode === 1 ? 'Controlled Practice' : 'Independent Production'}</div>
+      <div class="q-verb-group">${state.verb}</div>
+      <div class="q-instruction">Complete the sentence by choosing the correct phrasal verb.</div>
+      ${withHint ? `<div class="fill-hint">Meaning: ${item.def}</div>` : ''}
+      <div class="fill-sentence">${sentence}</div>
+      <div class="options-grid" id="opts"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="nav-row"><span></span><button class="btn-nav primary hidden" id="btn-next" onclick="nextQuestion()">Next →</button></div>
+    </div>
+    ${upsellHTML()}`;
+  buildOptionBtns(q, 'opts', (opt) => chooseFillin(q, opt));
+}
+
+function renderMixed(q, area) {
+  const item = q.item;
+  const escaped = item.form.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const sentence = item.example.replace(new RegExp(escaped,'i'), `<span class="blank" id="blank">________</span>`);
+  area.innerHTML = `
+    <div class="q-card">
+      <div class="q-badge purple">Part 4 · Mixed Review — Question ${state.qIndex + 1} of ${questions.length}</div>
+      <div class="q-instruction" style="margin-top:0.5rem">Choose the correct phrasal verb to complete this sentence. Phrases are drawn from any verb group — no hints!</div>
+      <div class="fill-sentence">${sentence}</div>
+      <div class="options-grid" id="opts"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="nav-row"><span></span><button class="btn-nav primary hidden" id="btn-next" onclick="nextQuestion()">Next →</button></div>
+    </div>
+    ${upsellHTML()}`;
+  buildOptionBtns(q, 'opts', (opt) => chooseFillin(q, opt));
+}
+
+function buildOptionBtns(q, containerId, handler) {
+  const div = document.getElementById(containerId);
+  q.options.forEach((opt) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt;
+    btn.onclick = () => handler(opt);
+    div.appendChild(btn);
+  });
+}
+
+function chooseFillin(q, opt) {
+  if (state.answered) return;
+  state.answered = true;
+  const correct = opt === q.item.form;
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.disabled = true;
+    if (btn.textContent === q.item.form) btn.classList.add('correct');
+    if (btn.textContent === opt && !correct) btn.classList.add('wrong');
+  });
+  const blank = document.getElementById('blank');
+  if (blank) { blank.textContent = q.item.form; blank.className = 'blank ' + (correct ? 'correct' : 'wrong'); }
+  if (correct) { state.sessionCorrect++; state.streak++; showFeedback(true, `Correct! "${q.item.form}" — ${q.item.def}.`); }
+  else { state.streak = 0; showFeedback(false, `Not quite. The answer is "${q.item.form}" — ${q.item.def}.`); }
+  state.sessionTotal++;
+  state.results.push({ phrase: q.item.phrase, correct });
+  updateHeaderScore();
+  const nxt = document.getElementById('btn-next');
+  if (nxt) nxt.classList.remove('hidden');
+  const sb = document.getElementById('streak-badge');
+  if (sb) sb.textContent = `🔥 ${state.streak} streak`;
+}
+
+// ── SAT MODE ──────────────────────────────────────────────────────────────
+function renderSAT(area) {
+  const satSet = state._satPassage;
+  if (!satSet) {
+    area.innerHTML = `<div class="q-card"><div class="q-badge gold">Part 5 · Read in Context</div><p style="color:var(--ink-muted);font-size:0.95rem;margin-top:1rem">No passage available. Please try again.</p></div>`;
+    return;
+  }
+
+  const qi = state._satQIndex;
+  const qs = satSet.questions;
+  if (qi >= qs.length) { showSATResults(area); return; }
+
+  const q = qs[qi];
+  const isComp = q.phrase === '__comprehension__';
+  const totalQ = qs.length;
+
+  // Build passage HTML — update highlight classes for answered questions
+  let passage = satSet.passage;
+  state._satResults.forEach((r, idx) => {
+    const ph = qs[idx].phrase;
+    if (ph === '__comprehension__') return;
+    const cls = r.correct ? 'answered-correct' : 'answered-wrong';
+    const escaped = ph.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    passage = passage.replace(
+      new RegExp(`data-phrase="${escaped}"(?:\\s+class="[^"]*")?`, 'g'),
+      `data-phrase="${ph}" class="${cls}"`
+    );
+  });
+  // Highlight current question target (non-comprehension)
+  if (!isComp) {
+    const ph = q.phrase;
+    const escaped = ph.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    passage = passage.replace(
+      new RegExp(`data-phrase="${escaped}"(?!\\s+class="answered)`, 'g'),
+      `data-phrase="${ph}" class=""`
+    );
+  }
+
+  // Progress bar
+  document.getElementById('progress-wrap').classList.remove('hidden');
+  const pct = Math.round((qi / totalQ) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = `Question ${qi + 1} of ${totalQ}`;
+  document.getElementById('streak-badge').textContent = `🔥 ${state.streak} streak`;
+
+  const verbGroupsLabel = satSet.verb_groups.join(', ');
+
+  area.innerHTML = `
+    <div class="q-card">
+      <div class="q-badge gold">Part 5 · Read in Context</div>
+      <div class="q-verb-group" style="font-size:1.4rem;margin-bottom:0.15rem">${satSet.scenario}</div>
+      <div style="font-size:0.78rem;color:var(--ink-muted);margin-bottom:1.5rem">Verb groups in this passage: ${verbGroupsLabel}</div>
+      <div class="passage-box">
+        <div class="passage-label">Passage</div>
+        ${passage}
+      </div>
+      <hr class="sat-divider">
+      <div class="sat-q-num">Question ${qi + 1} of ${totalQ}${isComp ? ' — Comprehension' : ''}</div>
+      <div class="sat-question-text">${q.question}</div>
+      <div class="sat-options" id="sat-opts"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="nav-row"><span></span><button class="btn-nav primary hidden" id="btn-sat-next" onclick="nextSATQuestion()">Next →</button></div>
+    </div>
+    ${upsellHTML()}`;
+
+  const optsDiv = document.getElementById('sat-opts');
+  const letterMap = ['A','B','C','D'];
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'sat-option-btn';
+    btn.innerHTML = `<span class="opt-letter">${letterMap[i]}</span><span>${opt.replace(/^[A-D]\. /,'')}</span>`;
+    btn.onclick = () => chooseSATOption(i, q, letterMap[i]);
+    optsDiv.appendChild(btn);
+  });
+}
+
+function chooseSATOption(i, q, letter) {
+  if (state._satAnswered) return;
+  state._satAnswered = true;
+  const correct = letter === q.correct;
+  document.querySelectorAll('.sat-option-btn').forEach((btn, j) => {
+    btn.disabled = true;
+    if (['A','B','C','D'][j] === q.correct) btn.classList.add('correct');
+    if (j === i && !correct) btn.classList.add('wrong');
+  });
+  if (correct) { state.sessionCorrect++; state.streak++; showFeedback(true, `Correct! Well done.`); }
+  else {
+    state.streak = 0;
+    const correctText = q.options[['A','B','C','D'].indexOf(q.correct)].replace(/^[A-D]\. /,'');
+    showFeedback(false, `Not quite. The correct answer is: "${correctText}".`);
+  }
+  state.sessionTotal++;
+  state._satResults.push({ phrase: q.phrase, correct });
+  updateHeaderScore();
+  const nxt = document.getElementById('btn-sat-next');
+  if (nxt) nxt.classList.remove('hidden');
+  const sb = document.getElementById('streak-badge');
+  if (sb) sb.textContent = `🔥 ${state.streak} streak`;
+}
+
+function nextSATQuestion() {
+  state._satQIndex++;
+  state._satAnswered = false;
+  renderSAT(document.getElementById('exercise-area'));
+}
+
+function showSATResults(area) {
+  document.getElementById('progress-wrap').classList.add('hidden');
+  const total = state._satResults.length;
+  const correct = state._satResults.filter(r => r.correct).length;
+  const pct = total ? Math.round((correct / total) * 100) : 0;
+  const title = pct === 100 ? 'Perfect Score!' : pct >= 70 ? 'Well Done!' : 'Keep Practising!';
+  const breakdown = state._satResults.map(r => `
+    <div class="breakdown-item">
+      <span class="breakdown-phrase">${r.phrase === '__comprehension__' ? 'Comprehension' : r.phrase}</span>
+      <span class="breakdown-result ${r.correct ? 'ok' : 'miss'}">${r.correct ? '✓ Correct' : '✗ Missed'}</span>
+    </div>`).join('');
+  area.innerHTML = `
+    <div class="results-card">
+      <div class="results-score-ring" style="border-color:var(--purple)">
+        <div class="results-score-num" style="color:var(--purple-dark)">${pct}%</div>
+        <div class="results-score-label">${correct}/${total}</div>
+      </div>
+      <div class="results-title">${title}</div>
+      <div class="results-sub">Read in Context — ${state._satPassage ? state._satPassage.scenario : 'Mixed'} passage</div>
+      <div class="results-breakdown">${breakdown}</div>
+      <div class="results-btns">
+        <button class="btn-nav" onclick="retrySAT()">↩ Try Again</button>
+        <button class="btn-nav primary" onclick="nextMode()">Next Mode →</button>
+      </div>
+    </div>
+    ${upsellHTML()}`;
+}
+
+function retrySAT() {
+  resetSat();
+  renderQuestion();
+}
+
+// ── SHARED ────────────────────────────────────────────────────────────────
+function showFeedback(correct, msg) {
+  const fb = document.getElementById('feedback');
+  if (!fb) return;
+  fb.className = 'feedback show ' + (correct ? 'correct-fb' : 'wrong-fb');
+  fb.innerHTML = `<span class="feedback-icon">${correct ? '✓' : '✗'}</span><span>${msg}</span>`;
+}
+
+function nextQuestion() {
+  state.qIndex++;
+  state.answered = false;
+  renderQuestion();
+}
+
+// ── RESULTS ───────────────────────────────────────────────────────────────
+function showResults() {
+  const area = document.getElementById('exercise-area');
+  document.getElementById('progress-wrap').classList.add('hidden');
+  const total = state.results.length;
+  const correct = state.results.filter(r => r.correct).length;
+  const pct = total ? Math.round((correct / total) * 100) : 0;
+  const title = pct === 100 ? 'Perfect Score!' : pct >= 70 ? 'Well Done!' : 'Keep Practising!';
+  const sub = pct === 100
+    ? `Perfect on "${state.mode === 3 ? 'Mixed Review' : state.verb}" — impressive!`
+    : `You scored ${correct} out of ${total}. Review the missed phrases and try again.`;
+  const breakdown = state.results.map(r => `
+    <div class="breakdown-item">
+      <span class="breakdown-phrase">${r.phrase}</span>
+      <span class="breakdown-result ${r.correct ? 'ok' : 'miss'}">${r.correct ? '✓ Correct' : '✗ Missed'}</span>
+    </div>`).join('');
+  area.innerHTML = `
+    <div class="results-card">
+      <div class="results-score-ring">
+        <div class="results-score-num">${pct}%</div>
+        <div class="results-score-label">${correct}/${total}</div>
+      </div>
+      <div class="results-title">${title}</div>
+      <div class="results-sub">${sub}</div>
+      <div class="results-breakdown">${breakdown}</div>
+      <div class="results-btns">
+        <button class="btn-nav" onclick="retrySet()">↩ Try Again</button>
+        <button class="btn-nav primary" onclick="nextMode()">Next Mode →</button>
+      </div>
+    </div>
+    ${upsellHTML()}`;
+}
+
+function retrySet() {
+  state.qIndex = 0; state.results = []; state.answered = false;
+  buildQuestions(); renderQuestion();
+}
+
+function nextMode() {
+  setMode((state.mode + 1) % 5);
+}
+
+// ── UPSELL / HELPERS ──────────────────────────────────────────────────────
+function upsellHTML() {
+  return `<div class="upsell-banner">
+    <div class="upsell-text">
+      <h3>Unlock all 500+ phrasal verbs</h3>
+      <p>Full Mixed Review, all passages, progress tracking, and missed-phrase review.</p>
+    </div>
+    <button class="btn-upsell" onclick="showUpgrade()">Unlock Pro — $4.99/mo</button>
+  </div>`;
+}
+
+function showUpgrade() {
+  alert('Pro subscription — coming soon!\n\n✓ All verb groups (500+ phrases)\n✓ Mixed Review across full dataset\n✓ All Read in Context passages\n✓ Session history & missed-phrase review\n✓ Streak tracking across sessions');
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function updateHeaderScore() {
+  document.getElementById('hdr-score').textContent = `${state.sessionCorrect} / ${state.sessionTotal}`;
+}
+
+init();
+</script>
+</body>
+</html>
