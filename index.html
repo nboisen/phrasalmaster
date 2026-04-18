@@ -545,72 +545,419 @@ const LOCKED_VERBS = ["Break", "Bring", "Build", "Call"];
 // Verb tabs are disabled in this mode; a random passage is selected each session.
 const SAT_PASSAGES = [
   {
-    id: "mixed-01",
-    scenario: "Community Project",
-    verb_groups: ["Act","Ask","Back","Add"],
-    passage: `When the neighbourhood council decided to <mark data-phrase="act on">act on</mark> residents' concerns about the neglected community garden, they began by asking a local architect to <mark data-phrase="act as">act as</mark> project coordinator. She immediately <mark data-phrase="asked around">asked around</mark> to gauge how much volunteer support she could expect. Several families agreed to <mark data-phrase="back up">back up</mark> the initiative with both time and funding. One generous donor offered to <mark data-phrase="add on">add on</mark> a small greenhouse to the original plan, which would only <mark data-phrase="add to">add to</mark> the project's appeal. A few early volunteers began to <mark data-phrase="back out">back out</mark> when they realised the scale of the work involved, but the coordinator refused to <mark data-phrase="back down">back down</mark>. She continued to <mark data-phrase="ask for">ask for</mark> support until the numbers added up to a workable team.`,
-    questions: [
-      { phrase:"act on",    question:`As used in the passage, "act on" most nearly means:`,    options:["A. perform publicly","B. take action based on information","C. delay a decision","D. report to authorities"], correct:"B" },
-      { phrase:"act as",    question:`As used in the passage, "act as" most nearly means:`,    options:["A. pretend to be","B. criticise","C. function in a particular role","D. replace permanently"], correct:"C" },
-      { phrase:"asked around", question:`As used in the passage, "asked around" most nearly means:`, options:["A. sent a formal survey","B. inquired with multiple people","C. spoke in circles","D. posted online"], correct:"B" },
-      { phrase:"back up",   question:`As used in the passage, "back up" most nearly means:`,   options:["A. reverse direction","B. store data","C. support","D. slow down"], correct:"C" },
-      { phrase:"add on",    question:`As used in the passage, "add on" most nearly means:`,    options:["A. include extra","B. remove a feature","C. redesign completely","D. budget for"], correct:"A" },
-      { phrase:"add to",    question:`As used in the passage, "add to" most nearly means:`,    options:["A. reduce","B. contribute","C. replace","D. list separately"], correct:"B" },
-      { phrase:"back out",  question:`As used in the passage, "back out" most nearly means:`,  options:["A. leave through a back door","B. ask for more time","C. withdraw from a commitment","D. disagree openly"], correct:"C" },
-      { phrase:"back down", question:`As used in the passage, "back down" most nearly means:`, options:["A. sit and rest","B. withdraw from a position","C. move physically backward","D. lower expectations"], correct:"B" },
-      { phrase:"ask for",   question:`As used in the passage, "ask for" most nearly means:`,   options:["A. demand payment","B. request or seek","C. question the value of","D. complain about"], correct:"B" },
-      { phrase:"__comprehension__", question:`Which choice best describes the overall development in the passage?`, options:["A. A community project collapses due to lack of funding","B. A determined coordinator keeps a community initiative alive despite setbacks","C. A donor takes over a project from an inexperienced team","D. Volunteers successfully complete a garden without outside help"], correct:"B" },
-    ]
-  },
-  {
-    id: "mixed-02",
-    scenario: "School & Education",
-    verb_groups: ["Act","Add","Ask","Back"],
-    passage: `When the new headteacher arrived, she wasted no time: she chose to <mark data-phrase="act on">act on</mark> the feedback from the previous year's student survey. She asked a senior teacher to <mark data-phrase="act for">act for</mark> her during her first week of parent meetings while she settled in. Students were encouraged to <mark data-phrase="ask about">ask about</mark> any aspect of the new curriculum they found confusing. The school also decided to <mark data-phrase="add in">add in</mark> a weekly discussion period for older students. When the timetable was finalised, the deputy calculated that the changes would <mark data-phrase="add up to">add up to</mark> an extra two hours of guided study per week. A small group of parents tried to get the school to <mark data-phrase="back down">back down</mark> on the stricter attendance policy, but the headteacher stood firm and asked the governing board to <mark data-phrase="back up">back up</mark> her decision.`,
-    questions: [
-      { phrase:"act on",    question:`As used in the passage, "act on" most nearly means:`,    options:["A. perform in front of students","B. take action based on information","C. ignore completely","D. postpone until later"], correct:"B" },
-      { phrase:"act for",   question:`As used in the passage, "act for" most nearly means:`,   options:["A. argue on behalf of","B. create work for","C. represent someone","D. perform alongside"], correct:"C" },
-      { phrase:"ask about", question:`As used in the passage, "ask about" most nearly means:`, options:["A. complain about","B. inquire regarding","C. vote on","D. protest against"], correct:"B" },
-      { phrase:"add in",    question:`As used in the passage, "add in" most nearly means:`,    options:["A. remove from a schedule","B. include as part of something","C. replace an existing period","D. reduce by one hour"], correct:"B" },
-      { phrase:"add up to", question:`As used in the passage, "add up to" most nearly means:`, options:["A. be calculated incorrectly","B. cancel out","C. result in","D. be divided equally"], correct:"C" },
-      { phrase:"back down", question:`As used in the passage, "back down" most nearly means:`, options:["A. sit down quietly","B. move to a lower grade","C. withdraw from a position","D. reduce class sizes"], correct:"C" },
-      { phrase:"back up",   question:`As used in the passage, "back up" most nearly means:`,   options:["A. copy files digitally","B. return to an earlier position","C. support","D. slow down a process"], correct:"C" },
-      { phrase:"__comprehension__", question:`Which choice best describes the overall development in the passage?`, options:["A. A headteacher introduces changes and maintains them despite resistance","B. A school's new policies are rejected by parents and overturned","C. A student group successfully lobbies for fewer study hours","D. A teacher replaces the headteacher after a dispute"], correct:"A" },
-    ]
-  },
-  {
-    id: "mixed-03",
-    scenario: "Travel & Unexpected Events",
-    verb_groups: ["Act","Ask","Back","Add"],
-    passage: `The trip had barely begun when things started to go wrong. The tour bus began to <mark data-phrase="act up (machine)">act up</mark> just outside the city, forcing the group to pull over on a busy highway. The tour guide tried to <mark data-phrase="act on">act on</mark> the driver's suggestion to call a replacement vehicle immediately. While they waited, one traveller <mark data-phrase="asked after">asked after</mark> an elderly member of the group who appeared unwell in the heat. Another passenger attempted to <mark data-phrase="ask around">ask around</mark> at a nearby café to find out if anyone could help. After an hour's delay, a replacement vehicle arrived, but the driver informed them that a diversion would <mark data-phrase="add to">add to</mark> the journey time significantly. Some passengers wanted to <mark data-phrase="back out">back out</mark> of the afternoon excursion entirely, though most decided to press on. By the end of the day, the unexpected detours had managed to <mark data-phrase="add up to">add up to</mark> a surprisingly memorable adventure.`,
-    questions: [
-      { phrase:"act up (machine)", question:`As used in the passage, "act up" (the bus) most nearly means:`, options:["A. perform unexpectedly well","B. malfunction","C. speed up suddenly","D. run out of fuel"], correct:"B" },
-      { phrase:"act on",    question:`As used in the passage, "act on" most nearly means:`,    options:["A. perform in public","B. record for later","C. take action based on information","D. report to police"], correct:"C" },
-      { phrase:"asked after", question:`As used in the passage, "asked after" most nearly means:`, options:["A. followed closely behind","B. inquired about someone's well-being","C. requested something from","D. questioned the behaviour of"], correct:"B" },
-      { phrase:"ask around", question:`As used in the passage, "ask around" most nearly means:`, options:["A. inquire with multiple people","B. speak quietly","C. ask permission","D. search independently"], correct:"A" },
-      { phrase:"add to",    question:`As used in the passage, "add to" most nearly means:`,    options:["A. reduce","B. replace","C. contribute","D. calculate"], correct:"C" },
-      { phrase:"back out",  question:`As used in the passage, "back out" most nearly means:`,  options:["A. exit in reverse","B. withdraw from a commitment","C. turn around and drive back","D. ask for a refund"], correct:"B" },
-      { phrase:"add up to", question:`As used in the passage, "add up to" most nearly means:`, options:["A. be too expensive","B. cancel each other out","C. result in","D. be too long to complete"], correct:"C" },
-      { phrase:"__comprehension__", question:`Which choice best describes the overall development in the passage?`, options:["A. A carefully planned trip proceeds without difficulty","B. A series of mishaps transforms into an unexpectedly positive experience","C. Travellers abandon their trip after a vehicle breakdown","D. A tour guide loses control of a difficult group of tourists"], correct:"B" },
-    ]
-  },
-  {
-    id: "mixed-04",
-    scenario: "Workplace Conflict",
-    verb_groups: ["Act","Ask","Back","Add"],
-    passage: `The disagreement between the two department heads had been building for weeks. One manager had begun to <mark data-phrase="act out">act out</mark> her frustrations in team meetings, making colleagues uncomfortable. Her counterpart decided to <mark data-phrase="ask about">ask about</mark> the situation discreetly, approaching HR for guidance. HR advised both parties to <mark data-phrase="act on">act on</mark> the company's mediation policy before the conflict escalated further. During the mediation session, one manager tried to <mark data-phrase="back away">back away</mark> from her earlier accusations, while the other refused to <mark data-phrase="back off">back off</mark> until a formal apology was issued. The mediator suggested they <mark data-phrase="add in">add in</mark> a structured communication protocol to future team meetings. Both parties eventually agreed this would <mark data-phrase="add to">add to</mark> the team's overall effectiveness. It was, however, the willingness of senior leadership to <mark data-phrase="back up">back up</mark> the new protocol with consequences that finally resolved the matter.`,
-    questions: [
-      { phrase:"act out",   question:`As used in the passage, "act out" most nearly means:`,   options:["A. perform a role","B. express emotions through behavior","C. leave the room","D. file a formal complaint"], correct:"B" },
-      { phrase:"ask about", question:`As used in the passage, "ask about" most nearly means:`, options:["A. complain loudly about","B. report officially","C. inquire regarding","D. ignore entirely"], correct:"C" },
-      { phrase:"act on",    question:`As used in the passage, "act on" most nearly means:`,    options:["A. perform publicly","B. refuse to follow","C. take action based on information","D. draft a new version of"], correct:"C" },
-      { phrase:"back away", question:`As used in the passage, "back away" most nearly means:`, options:["A. physically leave the room","B. move away from a position","C. apologise formally","D. deny involvement"], correct:"B" },
-      { phrase:"back off",  question:`As used in the passage, "back off" most nearly means:`,  options:["A. retreat or stop pressuring","B. resign from a role","C. physically step back","D. change the subject"], correct:"A" },
-      { phrase:"add in",    question:`As used in the passage, "add in" most nearly means:`,    options:["A. remove an existing rule","B. replace a procedure","C. calculate costs","D. include as part of something"], correct:"D" },
-      { phrase:"add to",    question:`As used in the passage, "add to" most nearly means:`,    options:["A. reduce","B. contribute","C. replace","D. summarise"], correct:"B" },
-      { phrase:"back up",   question:`As used in the passage, "back up" most nearly means:`,   options:["A. store electronically","B. reverse direction","C. support","D. repeat slowly"], correct:"C" },
-      { phrase:"__comprehension__", question:`Which choice best describes the overall development in the passage?`, options:["A. A workplace conflict is resolved through structured intervention and leadership support","B. Two managers compete for the same promotion and neither succeeds","C. HR dismisses both managers after a prolonged dispute","D. A mediation session fails and the conflict remains unresolved"], correct:"A" },
-    ]
-  }
+  "id": "mixed-05",
+  "scenario": "Healthcare",
+  "passage": "After weeks of dealing with a difficult patient caseload, Dr. Reyes decided to <mark data-phrase=\"call by\">call by</mark> the ward on her day off to check on a particularly vulnerable patient. The hospital had recently begun to <mark data-phrase=\"build out\">build out</mark> its community outreach programme, and she had <mark data-phrase=\"ask around\">asked around</mark> among colleagues to find volunteers willing to visit isolated patients at home. The pressure, however, was taking its toll. Two junior nurses had <mark data-phrase=\"break out in\">broken out in</mark> stress-related rashes, and one registrar confessed that the relentless night shifts had completely <mark data-phrase=\"do in\">done him in</mark>. Management asked senior staff to <mark data-phrase=\"check through\">check through</mark> the duty rosters carefully to identify where the workload was most unevenly distributed. There were also growing concerns that chronic underfunding would eventually <mark data-phrase=\"drive out\">drive out</mark> experienced clinicians from the public health system altogether.",
+  "questions": [
+    {
+      "phrase": "call by",
+      "question": "As used in the passage, \"call by\" most nearly means:",
+      "options": [
+        "A. make a telephone call",
+        "B. cancel a scheduled visit",
+        "C. visit briefly",
+        "D. summon someone officially"
+      ],
+      "correct": "C"
+    },
+    {
+      "phrase": "build out",
+      "question": "As used in the passage, \"build out\" most nearly means:",
+      "options": [
+        "A. construct a new building",
+        "B. expand or extend",
+        "C. reduce the size of",
+        "D. replace an existing structure"
+      ],
+      "correct": "B"
+    },
+    {
+      "phrase": "ask around",
+      "question": "As used in the passage, \"asked around\" most nearly means:",
+      "options": [
+        "A. sent a formal written request",
+        "B. demanded answers from management",
+        "C. searched online for information",
+        "D. inquired with multiple people"
+      ],
+      "correct": "D"
+    },
+    {
+      "phrase": "break out in",
+      "question": "As used in the passage, \"broken out in\" most nearly means:",
+      "options": [
+        "A. escaped from a difficult situation",
+        "B. developed suddenly",
+        "C. complained openly about",
+        "D. recovered quickly from"
+      ],
+      "correct": "B"
+    },
+    {
+      "phrase": "do in",
+      "question": "As used in the passage, \"done him in\" most nearly means:",
+      "options": [
+        "A. motivated him greatly",
+        "B. exhausted him completely",
+        "C. caused him to resign",
+        "D. made him seriously ill"
+      ],
+      "correct": "B"
+    },
+    {
+      "phrase": "check through",
+      "question": "As used in the passage, \"check through\" most nearly means:",
+      "options": [
+        "A. pass quickly through a checkpoint",
+        "B. delete items from a list",
+        "C. inspect thoroughly",
+        "D. distribute evenly among staff"
+      ],
+      "correct": "C"
+    },
+    {
+      "phrase": "drive out",
+      "question": "As used in the passage, \"drive out\" most nearly means:",
+      "options": [
+        "A. encourage to seek promotion",
+        "B. transport to another location",
+        "C. train and develop",
+        "D. expel or force to leave"
+      ],
+      "correct": "D"
+    },
+    {
+      "phrase": "__comprehension__",
+      "question": "Which choice best describes the overall development in the passage?",
+      "options": [
+        "A. A hospital successfully expands its services through effective staff management",
+        "B. A dedicated doctor enjoys a well-earned day off from a demanding role",
+        "C. Growing pressures in a healthcare setting threaten both staff wellbeing and long-term retention",
+        "D. Hospital management introduces new rosters that immediately resolve a staffing crisis"
+      ],
+      "correct": "C"
+    }
+  ]
+},
+{
+  "id": "mixed-06",
+  "scenario": "Sport",
+  "passage": "When the club's veteran coach announced his retirement, few expected it to <mark data-phrase=\"bring about\">bring about</mark> such a dramatic shift in the team's fortunes. The board moved quickly to <mark data-phrase=\"call off\">call off</mark> negotiations with two external candidates and instead promoted from within. The new coach, a former midfielder, had spent years trying to <mark data-phrase=\"break through\">break through</mark> in management after a string of near misses with lower-league clubs. Some senior players began to <mark data-phrase=\"back away\">back away</mark> from their usual leadership roles, uncertain how to read the new dynamic. The coaching staff had to <mark data-phrase=\"add up\">add up</mark> the available budget for January signings, and the figures were sobering. A run of three consecutive losses began to <mark data-phrase=\"bring down\">bring down</mark> even the most resilient members of the squad. Off the pitch, a promising young striker finally worked up the courage to <mark data-phrase=\"ask out\">ask out</mark> a teammate he had admired for months — a moment of levity that briefly lifted the mood. Determined to move forward, the coach urged the squad to <mark data-phrase=\"build on\">build on</mark> the defensive discipline they had shown in draws against stronger opponents.",
+  "questions": [
+    {
+      "phrase": "bring about",
+      "question": "As used in the passage, \"bring about\" most nearly means:",
+      "options": [
+        "A. prevent from happening",
+        "B. cause or result in",
+        "C. announce publicly",
+        "D. delay until later"
+      ],
+      "correct": "B"
+    },
+    {
+      "phrase": "call off",
+      "question": "As used in the passage, \"call off\" most nearly means:",
+      "options": [
+        "A. telephone a candidate",
+        "B. postpone indefinitely",
+        "C. cancel",
+        "D. invite to interview"
+      ],
+      "correct": "C"
+    },
+    {
+      "phrase": "break through",
+      "question": "As used in the passage, \"break through\" most nearly means:",
+      "options": [
+        "A. overcome a physical barrier",
+        "B. resign from a position",
+        "C. return after an absence",
+        "D. advance despite difficulty"
+      ],
+      "correct": "D"
+    },
+    {
+      "phrase": "back away",
+      "question": "As used in the passage, \"back away\" most nearly means:",
+      "options": [
+        "A. offer strong support",
+        "B. move away from a position",
+        "C. challenge openly",
+        "D. take on extra responsibility"
+      ],
+      "correct": "B"
+    },
+    {
+      "phrase": "add up",
+      "question": "As used in the passage, \"add up\" most nearly means:",
+      "options": [
+        "A. overestimate costs",
+        "B. request additional funding",
+        "C. calculate the total",
+        "D. compare against previous figures"
+      ],
+      "correct": "C"
+    },
+    {
+      "phrase": "bring down",
+      "question": "As used in the passage, \"bring down\" most nearly means:",
+      "options": [
+        "A. make unhappy",
+        "B. remove from a position",
+        "C. motivate strongly",
+        "D. reduce team numbers"
+      ],
+      "correct": "A"
+    },
+    {
+      "phrase": "ask out",
+      "question": "As used in the passage, \"ask out\" most nearly means:",
+      "options": [
+        "A. request someone leave the room",
+        "B. question someone publicly",
+        "C. invite on a date",
+        "D. ask for a transfer"
+      ],
+      "correct": "C"
+    },
+    {
+      "phrase": "build on",
+      "question": "As used in the passage, \"build on\" most nearly means:",
+      "options": [
+        "A. construct additional facilities",
+        "B. ignore previous results",
+        "C. replace an existing approach",
+        "D. develop further"
+      ],
+      "correct": "D"
+    },
+    {
+      "phrase": "__comprehension__",
+      "question": "Which choice best describes the overall development in the passage?",
+      "options": [
+        "A. A football club collapses following the sudden departure of its coach",
+        "B. A new coach navigates a period of uncertainty and attempts to rebuild team confidence",
+        "C. A board of directors successfully transforms a struggling club through shrewd recruitment",
+        "D. A veteran coach returns from retirement to lead his former club to victory"
+      ],
+      "correct": "B"
+    }
+  ]
+},
+{
+  "id": "mixed-07",
+  "scenario": "Legal",
+  "passage": "When the case first made headlines, the lead attorney was confident the controversy would simply <mark data-phrase=\"blow over\">blow over</mark> before it reached trial. Instead, her junior colleague <mark data-phrase=\"brought forward\">brought forward</mark> a set of financial documents that fundamentally changed the direction of the defence. The firm decided to <mark data-phrase=\"call on\">call on</mark> a forensic accountant to interpret the figures for the jury. Under the sustained pressure of cross-examination, one witness <mark data-phrase=\"broke down\">broke down</mark> on the stand, visibly struggling to maintain composure. During a recess, a paralegal quietly <mark data-phrase=\"asked after\">asked after</mark> the witness, concerned about her state of mind. Meanwhile, a key co-defendant unexpectedly <mark data-phrase=\"backed out\">backed out</mark> of the joint defence agreement, forcing the team to restructure its entire strategy. Legal costs had begun to <mark data-phrase=\"build up\">build up</mark> at an alarming rate, and the client requested that no further expert witnesses be <mark data-phrase=\"added on\">added on</mark> without prior approval.",
+  "questions": [
+    {
+      "phrase": "blow over",
+      "question": "As used in the passage, \"blow over\" most nearly means:",
+      "options": [
+        "A. escalate into a major crisis",
+        "B. pass without serious consequences",
+        "C. be dismissed by the court",
+        "D. attract significant media attention"
+      ],
+      "correct": "B"
+    },
+    {
+      "phrase": "brought forward",
+      "question": "As used in the passage, \"brought forward\" most nearly means:",
+      "options": [
+        "A. delivered to the opposing counsel",
+        "B. hidden from the court",
+        "C. proposed",
+        "D. requested from a third party"
+      ],
+      "correct": "C"
+    },
+    {
+      "phrase": "call on",
+      "question": "As used in the passage, \"call on\" most nearly means:",
+      "options": [
+        "A. telephone for information",
+        "B. dismiss from the case",
+        "C. formally charge",
+        "D. approach for assistance"
+      ],
+      "correct": "D"
+    },
+    {
+      "phrase": "broke down",
+      "question": "As used in the passage, \"broke down\" most nearly means:",
+      "options": [
+        "A. delivered a compelling testimony",
+        "B. experienced an emotional crisis",
+        "C. refused to answer questions",
+        "D. contradicted an earlier statement"
+      ],
+      "correct": "B"
+    },
+    {
+      "phrase": "asked after",
+      "question": "As used in the passage, \"asked after\" most nearly means:",
+      "options": [
+        "A. questioned the credibility of",
+        "B. filed a complaint about",
+        "C. inquired about someone's well-being",
+        "D. requested a statement from"
+      ],
+      "correct": "C"
+    },
+    {
+      "phrase": "backed out",
+      "question": "As used in the passage, \"backed out\" most nearly means:",
+      "options": [
+        "A. negotiated a more favourable deal",
+        "B. withdrew from a commitment",
+        "C. provided additional evidence",
+        "D. appealed against a ruling"
+      ],
+      "correct": "B"
+    },
+    {
+      "phrase": "build up",
+      "question": "As used in the passage, \"build up\" most nearly means:",
+      "options": [
+        "A. decrease steadily",
+        "B. be disputed by the client",
+        "C. increase or accumulate",
+        "D. be shared between parties"
+      ],
+      "correct": "C"
+    },
+    {
+      "phrase": "added on",
+      "question": "As used in the passage, \"added on\" most nearly means:",
+      "options": [
+        "A. removed from the witness list",
+        "B. cross-examined by opposing counsel",
+        "C. contacted independently",
+        "D. included extra"
+      ],
+      "correct": "D"
+    },
+    {
+      "phrase": "__comprehension__",
+      "question": "Which choice best describes the overall development in the passage?",
+      "options": [
+        "A. A legal team achieves an unexpected victory after a witness delivers decisive testimony",
+        "B. A straightforward case unravels into a complex and costly legal challenge",
+        "C. A defendant successfully withdraws from a trial after new evidence emerges",
+        "D. A forensic accountant single-handedly changes the outcome of a high-profile case"
+      ],
+      "correct": "B"
+    }
+  ]
+},
+{
+  "id": "mixed-08",
+  "scenario": "Workplace",
+  "passage": "The product launch had been eighteen months in the making, and the pressure was beginning to show. The director decided to <mark data-phrase=\"bring in\">bring in</mark> two external consultants to assess whether the timeline was still realistic. Their initial report was blunt: the team had <mark data-phrase=\"blown through\">blown through</mark> nearly sixty percent of the development budget with three months still to go. At this rate, the company would be fortunate to <mark data-phrase=\"break even\">break even</mark> in the first year of sales. The situation would <mark data-phrase=\"call for\">call for</mark> some difficult conversations with the board. Several senior managers felt the director had <mark data-phrase=\"backed down on\">backed down on</mark> an earlier commitment to ring-fence the marketing budget, a charge she firmly denied. What the moment <mark data-phrase=\"asked of\">asked of</mark> the entire team was discipline and transparency. The original brief had been to build a platform specifically <mark data-phrase="build for">built for</mark> enterprise clients, yet scope creep had diluted that focus considerably. Unless the remaining resources were managed carefully, the delays would <mark data-phrase=\"add up to\">add up to</mark> a serious threat to the company's credibility.",
+  "questions": [
+    {
+      "phrase": "bring in",
+      "question": "As used in the passage, \"bring in\" most nearly means:",
+      "options": [
+        "A. generate additional revenue",
+        "B. dismiss from the project",
+        "C. introduce or involve",
+        "D. promote from within"
+      ],
+      "correct": "C"
+    },
+    {
+      "phrase": "blown through",
+      "question": "As used in the passage, \"blown through\" most nearly means:",
+      "options": [
+        "A. carefully allocated",
+        "B. spent or used quickly",
+        "C. transferred to another department",
+        "D. significantly underestimated"
+      ],
+      "correct": "B"
+    },
+    {
+      "phrase": "break even",
+      "question": "As used in the passage, \"break even\" most nearly means:",
+      "options": [
+        "A. generate a significant profit",
+        "B. recover from a financial loss",
+        "C. obtain neither profit nor loss",
+        "D. exceed the original sales forecast"
+      ],
+      "correct": "C"
+    },
+    {
+      "phrase": "call for",
+      "question": "As used in the passage, \"call for\" most nearly means:",
+      "options": [
+        "A. require",
+        "B. schedule a meeting about",
+        "C. request in writing",
+        "D. avoid entirely"
+      ],
+      "correct": "A"
+    },
+    {
+      "phrase": "backed down on",
+      "question": "As used in the passage, \"backed down on\" most nearly means:",
+      "options": [
+        "A. strongly defended",
+        "B. renegotiated in good faith",
+        "C. failed to keep a promise",
+        "D. formally documented"
+      ],
+      "correct": "C"
+    },
+    {
+      "phrase": "asked of",
+      "question": "As used in the passage, \"asked of\" most nearly means:",
+      "options": [
+        "A. questioned the loyalty of",
+        "B. made a request or demand",
+        "C. sought reassurance from",
+        "D. expected too little from"
+      ],
+      "correct": "B"
+    },
+    {
+      "phrase": "build for",
+      "question": "As used in the passage, \"built for\" most nearly means:",
+      "options": [
+        "A. expanded beyond",
+        "B. marketed exclusively to",
+        "C. designed or constructed for a specific purpose",
+        "D. tested thoroughly with"
+      ],
+      "correct": "C"
+    },
+    {
+      "phrase": "add up to",
+      "question": "As used in the passage, \"add up to\" most nearly means:",
+      "options": [
+        "A. be resolved by",
+        "B. be easily managed despite",
+        "C. cancel out",
+        "D. result in"
+      ],
+      "correct": "D"
+    },
+    {
+      "phrase": "__comprehension__",
+      "question": "Which choice best describes the overall development in the passage?",
+      "options": [
+        "A. A product launch succeeds after a team overcomes a series of budget challenges",
+        "B. External consultants take control of a failing project and restore confidence",
+        "C. A product launch is jeopardised by overspending, broken commitments, and loss of focus",
+        "D. A director resigns after failing to deliver a major project on time and within budget"
+      ],
+      "correct": "C"
+    }
+  ]
+}
+
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────
@@ -1029,13 +1376,12 @@ function renderSAT(area) {
   document.getElementById('prog-label').textContent = `Question ${qi + 1} of ${totalQ}`;
   document.getElementById('streak-badge').textContent = `🔥 ${state.streak} streak`;
 
-  const verbGroupsLabel = satSet.verb_groups.join(', ');
+  const verbGroupsLabel = ''; // removed — not shown to user
 
   area.innerHTML = `
     <div class="q-card">
       <div class="q-badge gold">Part 5 · Read in Context</div>
-      <div class="q-verb-group" style="font-size:1.4rem;margin-bottom:0.15rem">${satSet.scenario}</div>
-      <div style="font-size:0.78rem;color:var(--ink-muted);margin-bottom:1.5rem">Verb groups in this passage: ${verbGroupsLabel}</div>
+      <div class="q-verb-group" style="font-size:1.4rem;margin-bottom:1.5rem">${satSet.scenario}</div>
       <div class="passage-box">
         <div class="passage-label">Passage</div>
         ${passage}
